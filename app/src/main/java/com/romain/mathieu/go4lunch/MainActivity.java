@@ -30,15 +30,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
+                case R.id.navigation_lunch:
 //                    TopStoriesPageFragment.newInstance();
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_setting:
 
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_logout:
 
                     return true;
+
             }
             return false;
         }
@@ -56,9 +57,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setTitle("My News");
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -78,20 +85,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         // 6 - Show fragment after user clicked on a menu item
         switch (id) {
             case R.id.menu_drawer_1:
-                pager.setCurrentItem(0);
+                this.onLunchSelected();
                 break;
             case R.id.menu_drawer_2:
-                Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(myIntent);
+                this.onSettingSelected();
                 break;
             case R.id.menu_drawer_3:
-                pager.setCurrentItem(3);
+                this.onLogoutSelected();
                 break;
         }
 
@@ -99,4 +105,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private void onLunchSelected() {
+    }
+
+    private void onSettingSelected() {
+        Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(myIntent);
+    }
+
+    private void onLogoutSelected() {
+    }
 }
