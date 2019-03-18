@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
+import com.google.android.gms.maps.MapFragment;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.controller.fragment.MyListFragment;
 import com.romain.mathieu.go4lunch.controller.fragment.MyMapFragment;
@@ -64,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Stetho.initializeWithDefaults(this);
 
         setSupportActionBar(toolbar);
-        setTitle("My News");
+        setTitle(getString(R.string.app_name));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
@@ -81,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         showFragment(new MyMapFragment());
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.activity_main_frame_layout,new MyMapFragment());
+        fragmentTransaction.commit();
     }
 
 
