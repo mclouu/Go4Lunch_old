@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme_dark">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".controller.activity.SettingsActivity"
             android:label="@string/title_activity_settings2"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".controller.activity.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

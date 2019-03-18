@@ -1,4 +1,4 @@
-package com.romain.mathieu.go4lunch;
+package com.romain.mathieu.go4lunch.controller.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -18,6 +18,8 @@ import android.preference.RingtonePreference;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import com.romain.mathieu.go4lunch.R;
 
 import java.util.List;
 

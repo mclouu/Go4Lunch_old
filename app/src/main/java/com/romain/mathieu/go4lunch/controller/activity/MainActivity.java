@@ -1,10 +1,12 @@
-package com.romain.mathieu.go4lunch;
+package com.romain.mathieu.go4lunch.controller.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
+import com.romain.mathieu.go4lunch.R;
+import com.romain.mathieu.go4lunch.controller.fragment.MyListFragment;
+import com.romain.mathieu.go4lunch.controller.fragment.MyMapFragment;
+import com.romain.mathieu.go4lunch.controller.fragment.MyWorkmatesFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +29,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.drawer_navigation)
+    NavigationView drawerNavigation;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -30,14 +40,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_lunch:
-//                    TopStoriesPageFragment.newInstance();
+                case R.id.navigation_map:
+                    showFragment(new MyMapFragment());
                     return true;
-                case R.id.navigation_setting:
-
+                case R.id.navigation_list:
+                    showFragment(new MyListFragment());
                     return true;
-                case R.id.navigation_logout:
-
+                case R.id.navigation_workmates:
+                    showFragment(new MyWorkmatesFragment());
                     return true;
 
             }
@@ -64,11 +74,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        drawerNavigation.setNavigationItemSelectedListener(this);
+
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        showFragment(new MyMapFragment());
+    }
+
+
+    private void showFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.activity_main_frame_layout, fragment)
+                .commit();
     }
 
     //-------------
