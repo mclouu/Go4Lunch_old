@@ -3,4 +3,11 @@
     <string name="title_map">Carte</string>
     <string name="title_list">Liste</string>
     <string name="title_workmates">collègue</string>
+
+    <string name="menu_drawer_1">Workmates</string>
+    <string name="menu_drawer_2">OPTIONS</string>
+    <string name="menu_drawer_3">DÉCONNECTION</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
