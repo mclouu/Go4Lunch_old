@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Created by Romain Mathieu => https://github.com/mclouu
+  -->
+
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:gravity="center_horizontal|center_vertical"
+    android:minHeight="?attr/actionBarSize"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
