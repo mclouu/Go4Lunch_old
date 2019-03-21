@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
-import com.google.android.gms.maps.MapFragment;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.controller.fragment.MyListFragment;
 import com.romain.mathieu.go4lunch.controller.fragment.MyMapFragment;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.activity_main_frame_layout,new MyMapFragment());
+        fragmentTransaction.add(R.id.activity_main_frame_layout, new MyMapFragment());
         fragmentTransaction.commit();
     }
 
