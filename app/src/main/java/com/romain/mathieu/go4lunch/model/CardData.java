@@ -8,10 +8,10 @@ package com.romain.mathieu.go4lunch.model;
 public class CardData {
 
     private String name, adresse, horary, distance, numberWorkmates, imageUrl;
-    private int rating;
+    private double rating;
 
 
-    public CardData(String mName, String mAdresse, String mHorary, String mDistance, String mNumberWorkmates, int mRating, String mImageUrl) {
+    public CardData(String mName, String mAdresse, String mHorary, String mDistance, String mNumberWorkmates, double mRating, String mImageUrl) {
 
         this.name = mName;
         this.adresse = mAdresse;
@@ -43,7 +43,7 @@ public class CardData {
         return numberWorkmates;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
