@@ -3,6 +3,7 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -13,9 +14,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="8dp"
         android:background="@color/colorAccent" />
 
     <TextView
@@ -24,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_margin="8dp"
-        android:text="Chez TDB"
+        android:text="Chez TDB ahahahahaha"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
@@ -32,51 +31,51 @@
         android:id="@+id/distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/name"
-        android:layout_marginStart="189dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="8dp"
-        android:layout_toStartOf="@+id/thumbnail"
-        android:layout_toEndOf="@+id/name"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:paddingEnd="88dp"
         android:text="120m"
         android:textColor="@color/colorAccent"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
 
-    <ImageView
+    <TextView
         android:id="@+id/people_img"
         android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:layout_below="@id/distance"
-        android:layout_marginStart="147dp"
-        android:layout_marginTop="11dp"
-        android:layout_toEndOf="@+id/adresses"
-        android:baseline="@id/people_txt"
-        android:src="@drawable/ic_perm_identity_white_48dp" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/distance"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:textSize="20dp"
+        android:paddingEnd="110dp"
+        android:text="🙋‍♂️" />
 
     <TextView
         android:id="@+id/people_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/distance"
-        android:layout_alignRight="@id/distance"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="8dp"
+        android:layout_below="@+id/distance"
+        android:textSize="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="8dp"
+        android:paddingEnd="88dp"
         android:text="(3)" />
 
     <RatingBar
         android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/horary"
+        android:layout_below="@id/thumbnail"
         android:layout_alignParentEnd="true"
-        android:layout_margin="8dp" />
+        android:layout_margin="8dp"
+        android:numStars="5" />
 
     <TextView
         android:id="@+id/adresses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
+        android:layout_below="@id/name"
         android:layout_alignParentStart="true"
         android:layout_margin="8dp"
         android:maxLines="1"
