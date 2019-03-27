@@ -46,17 +46,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ArticleViewHolder>
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         final CardData object = mdatas.get(position);
 
+        float rating = (float) object.getRating();
 
         holder.name.setText(Html.fromHtml(object.getName()));
         holder.adresse.setText(Html.fromHtml(object.getAdresse()));
         holder.horary.setText(Html.fromHtml(object.getHorary()));
         holder.distance.setText(Html.fromHtml(object.getDistance()));
         holder.people_txt.setText(Html.fromHtml(object.getNumberWorkmates()));
+        holder.ratingBar.setRating(rating);
 
-        holder.ratingBar.setNumStars(object.getRating());
 
-        String url = object.getImageUrl();
-
+        String photoReference = object.getImageUrl();
+        String key = "&key=AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
+        String url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + key;
         Picasso.get()
                 .load(url)
                 .centerCrop()
