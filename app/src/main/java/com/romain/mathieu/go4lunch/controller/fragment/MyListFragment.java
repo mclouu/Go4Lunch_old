@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -106,31 +104,29 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
         String location_chezmoi = "49.4996529, 5.7571362";
         String location_paris = "48.866667, 2.333333";
+        String location_renaud = "49.117299, 6.088523";
         String radius = "1500";
         String type = "restaurant";
         String keyword = "";
 //        String API_KEY = MyConstant.API_KEY;
         String API_KEY = "AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
-        this.disposable = MapStreams.streamFetchMap(location_chezmoi, radius, type, keyword, API_KEY).subscribeWith(
+        this.disposable = MapStreams.streamFetchMap(location_renaud, radius, type, keyword, API_KEY).subscribeWith(
                 new DisposableObserver<ResponseMap>() {
                     @Override
                     public void onNext(ResponseMap section) {
 //                         1.3 - Update UI with topstories
                         updateUIWithListOfArticle(section);
-//                        Log.e("TDB", "Next " + section.getResults().get(0).getName());
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         mProgressBar.setVisibility(View.GONE);
                         Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show();
-                        Log.e("TDB", "erreur");
                     }
 
                     @Override
                     public void onComplete() {
                         mProgressBar.setVisibility(View.GONE);
-                        Log.e("TDB", "comlete");
                     }
                 }
         );
@@ -154,8 +150,13 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
             String distance = "200m";
             String numberWorkmates = "5";
             double rating = response.getResults().get(i).getRating();
-            String photoRef = response.getResults().get(i).getPhotos().get(0).getPhotoReference();
+            String photoRef;
 
+            if (response.getResults().get(i).getPhotos() == null) {
+                photoRef = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
+            } else {
+                photoRef = response.getResults().get(i).getPhotos().get(0).getPhotoReference();
+            }
 
             list.add(new CardData(
                     name + " ",
@@ -164,7 +165,7 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     distance + " ",
                     numberWorkmates + " ",
                     rating,
-                    photoRef + " "
+                    photoRef
             ));
         }
         adapter.notifyDataSetChanged();
