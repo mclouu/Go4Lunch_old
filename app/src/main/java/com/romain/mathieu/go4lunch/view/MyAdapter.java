@@ -5,8 +5,6 @@
 package com.romain.mathieu.go4lunch.view;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
