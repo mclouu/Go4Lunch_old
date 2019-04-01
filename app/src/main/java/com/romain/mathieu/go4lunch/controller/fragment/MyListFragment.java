@@ -110,7 +110,7 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
         String keyword = "";
 //        String API_KEY = MyConstant.API_KEY;
         String API_KEY = "AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
-        this.disposable = MapStreams.streamFetchMap(location_renaud, radius, type, keyword, API_KEY).subscribeWith(
+        this.disposable = MapStreams.streamFetchMap(location_chezmoi, radius, type, keyword, API_KEY).subscribeWith(
                 new DisposableObserver<ResponseMap>() {
                     @Override
                     public void onNext(ResponseMap section) {
