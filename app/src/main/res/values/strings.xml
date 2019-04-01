@@ -32,5 +32,9 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="error" translatable="false">Check Your Internet Connection</string>
+    <string name="sign_in_with_google" translatable="false">Sign in with Google</string>
+    <string name="sign_in_with_facebook" translatable="false">Sign in with Facebook</string>
+    <string name="title_activity_login">login</string>
+    <string name="sign_in_with_email" translatable="false">sign in with email</string>
 
 </resources>

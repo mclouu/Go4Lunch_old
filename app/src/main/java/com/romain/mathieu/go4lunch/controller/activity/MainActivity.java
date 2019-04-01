@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.romain.mathieu.go4lunch.R;
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return false;
         }
     };
+
+    public static Intent createIntent(LoginActivity loginActivity, IdpResponse response) {
+        return null;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
