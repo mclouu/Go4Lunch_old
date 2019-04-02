@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.facebook.stetho.Stetho;
-import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.romain.mathieu.go4lunch.R;
@@ -37,29 +37,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     BottomNavigationView bottomNavigationView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+            = item -> {
+        switch (item.getItemId()) {
+            case R.id.navigation_map:
+                showFragment(new MyMapFragment());
+                return true;
+            case R.id.navigation_list:
+                showFragment(new MyListFragment());
+                return true;
+            case R.id.navigation_workmates:
+                showFragment(new MyWorkmatesFragment());
+                return true;
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_map:
-                    showFragment(new MyMapFragment());
-                    return true;
-                case R.id.navigation_list:
-                    showFragment(new MyListFragment());
-                    return true;
-                case R.id.navigation_workmates:
-                    showFragment(new MyWorkmatesFragment());
-                    return true;
-
-            }
-            return false;
         }
+        return false;
     };
-
-    public static Intent createIntent(LoginActivity loginActivity, IdpResponse response) {
-        return null;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.activity_main_frame_layout, new MyMapFragment());
         fragmentTransaction.commit();
+
+        Intent intent = getIntent();
+        String response = intent.getStringExtra("response");
     }
 
 
@@ -145,5 +140,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void onLogoutSelected() {
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnSuccessListener(aVoid -> {
+                    Intent myIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    startActivity(myIntent);
+                });
+
     }
 }
