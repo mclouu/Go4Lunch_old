@@ -1,19 +1,29 @@
 package com.romain.mathieu.go4lunch.controller.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.stetho.Stetho;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.controller.fragment.MyListFragment;
 import com.romain.mathieu.go4lunch.controller.fragment.MyMapFragment;
 import com.romain.mathieu.go4lunch.controller.fragment.MyWorkmatesFragment;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,6 +45,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView drawerNavigation;
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
+
+    // UI DRAWER USER
+    View header;
+    TextView userName;
+    TextView userEmail;
+    ImageView userPhoto;
+    Uri urlPhoto;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -64,6 +82,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.app_name));
 
+        // USER INFO
+        header = drawerNavigation.getHeaderView(0);
+
+        userName = header.findViewById(R.id.username);
+        userEmail = header.findViewById(R.id.useremail);
+        userPhoto = header.findViewById(R.id.userphoto);
+
+
+        this.updateUIWhenLoging();
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
@@ -84,9 +113,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.activity_main_frame_layout, new MyMapFragment());
         fragmentTransaction.commit();
+    }
 
-        Intent intent = getIntent();
-        String response = intent.getStringExtra("response");
+    @Nullable
+    protected FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    // 1 - Update UI when activity is creating
+    private void updateUIWhenLoging() {
+
+        if (this.getCurrentUser() != null) {
+
+            userName.setText(this.getCurrentUser().getDisplayName());
+            userEmail.setText(this.getCurrentUser().getEmail());
+            urlPhoto = this.getCurrentUser().getPhotoUrl();
+
+            Log.e("tdb", String.valueOf(urlPhoto));
+
+//            if (urlPhoto.equals("null")) {
+//                urlPhoto = Uri.parse("https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png");
+//            }
+            if (this.getCurrentUser().getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(urlPhoto)
+                        .placeholder(R.drawable.imageempty)
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(userPhoto);
+            }
+        }
     }
 
 
