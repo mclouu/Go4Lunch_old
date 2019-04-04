@@ -3,7 +3,6 @@ package com.romain.mathieu.go4lunch.controller.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -16,14 +15,10 @@ import com.romain.mathieu.go4lunch.R;
 import java.util.Collections;
 import java.util.Objects;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
-
-    @BindView(R.id.btn_login_google)
-    Button btnLoginGoogle;
 
     //FOR DATA
     // 1 - Identifier for Sign-In Activity
