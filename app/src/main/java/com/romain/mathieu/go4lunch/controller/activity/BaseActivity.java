@@ -1,17 +1,20 @@
 package com.romain.mathieu.go4lunch.controller.activity;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.romain.mathieu.go4lunch.R;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
-
 
 
     // --------------------
@@ -38,5 +41,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected Boolean isCurrentUserLogged() {
         return (this.getCurrentUser() != null);
+    }
+
+    // --------------------
+    // ERROR HANDLER
+    // --------------------
+
+    protected OnFailureListener onFailureListener(){
+        return e -> Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
     }
 }
