@@ -17,4 +17,7 @@
     <string name="pref_title_dark_mod">Dark Mod</string>
     <string name="pref_description_dark_mod">Dark Mod</string>
     <string name="title_activity_login">Go4Lunch</string>
+    <string name="edit_profile">EDIT PROFILE</string>
+    <string name="text_input_username">text input username</string>
+    <string name="rmathieu13_gmail_com">rmathieu13@gmail.com</string>
 </resources>
