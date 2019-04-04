@@ -131,9 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             Log.e("tdb", String.valueOf(urlPhoto));
 
-//            if (urlPhoto.equals("null")) {
-//                urlPhoto = Uri.parse("https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png");
-//            }
+
             if (this.getCurrentUser().getPhotoUrl() != null) {
                 Glide.with(this)
                         .load(urlPhoto)
@@ -180,10 +178,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_drawer_3:
                 this.onLogoutSelected();
                 break;
+            case R.id.menu_drawer_4:
+                this.onEditProfileSelected();
+                break;
         }
 
         this.drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void onEditProfileSelected() {
+        Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        startActivity(myIntent);
     }
 
     private void onLunchSelected() {
