@@ -9,6 +9,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.romain.mathieu.go4lunch.R;
+import com.romain.mathieu.go4lunch.model.User;
 import com.romain.mathieu.go4lunch.model.UserHelper;
 
 import java.util.Collections;
@@ -57,14 +58,21 @@ public class LoginActivity extends BaseActivity {
 
     // 1 - Http request that create user in firestore
     private void createUserInFirestore() {
-
         if (this.getCurrentUser() != null) {
+            String urlPicture;
+            if (LoginActivity.this.getCurrentUser().getPhotoUrl() != null)
+                urlPicture = LoginActivity.this.getCurrentUser().getPhotoUrl().toString();
+            else urlPicture = null;
+            String username = LoginActivity.this.getCurrentUser().getDisplayName();
+            String uid = LoginActivity.this.getCurrentUser().getUid();
 
-            String urlPicture = (this.getCurrentUser().getPhotoUrl() != null) ? this.getCurrentUser().getPhotoUrl().toString() : null;
-            String username = this.getCurrentUser().getDisplayName();
-            String uid = this.getCurrentUser().getUid();
-
-            UserHelper.createUser(uid, username, urlPicture).addOnFailureListener(this.onFailureListener());
+            UserHelper.getUser(uid).addOnSuccessListener(documentSnapshot -> {
+                User currentUser = documentSnapshot.toObject(User.class);
+                String userUid = currentUser.getUid();
+                if (!uid.equals(userUid)) {
+                    UserHelper.createUser(uid, username, urlPicture).addOnFailureListener(LoginActivity.this.onFailureListener());
+                }
+            });
         }
     }
 
