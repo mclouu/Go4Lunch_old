@@ -34,8 +34,13 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("username", username);
     }
 
-    public static Task<Void> updateIsX(String uid, Boolean isX) {
+    public static Task<Void> updateIsX(Boolean isX, String uid) {
         return UserHelper.getUsersCollection().document(uid).update("isX", isX);
+    }
+
+    public static Task<Void> updateUserPhoto(String urlPhoto, String uid) {
+        return UserHelper.getUsersCollection().document(uid).update("urlPicture", urlPhoto);
+
     }
 
     // --- DELETE ---
