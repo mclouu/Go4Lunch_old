@@ -1,9 +1,7 @@
 package com.romain.mathieu.go4lunch.controller.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -53,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView userName;
     TextView userEmail;
     ImageView userPhoto;
-    Uri urlPhoto;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -128,23 +125,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (this.getCurrentUser() != null) {
 
             userEmail.setText(this.getCurrentUser().getEmail());
-            urlPhoto = this.getCurrentUser().getPhotoUrl();
 
             UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
                 User currentUser = documentSnapshot.toObject(User.class);
                 String username = currentUser.getUsername();
                 userName.setText(username);
-
-            });
-
-
-            if (this.getCurrentUser().getPhotoUrl() != null) {
                 Glide.with(this)
-                        .load(urlPhoto)
+                        .load(currentUser.getUrlPicture())
                         .placeholder(R.drawable.imageempty)
                         .apply(RequestOptions.circleCropTransform())
                         .into(userPhoto);
-            }
+            });
         }
     }
 
