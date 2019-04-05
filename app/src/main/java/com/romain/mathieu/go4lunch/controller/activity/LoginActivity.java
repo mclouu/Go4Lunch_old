@@ -3,14 +3,13 @@ package com.romain.mathieu.go4lunch.controller.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.material.snackbar.Snackbar;
 import com.romain.mathieu.go4lunch.R;
+import com.romain.mathieu.go4lunch.model.UserHelper;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -33,15 +32,10 @@ public class LoginActivity extends BaseActivity {
         if (this.isCurrentUserLogged()) {
             this.startActivityIfConnected();
         } else {
-            showSnackbar("Vous êtes pas connecté :(");
+            showSnackbar("Vous n'êtes pas connecté :(", R.id.loginLayout);
         }
     }
 
-    private void showSnackbar(String str) {
-        Snackbar mySnackbar = Snackbar.make(findViewById(R.id.loginLayout),
-                str, Snackbar.LENGTH_LONG);
-        mySnackbar.show();
-    }
 
     @Override
     public int getFragmentLayout() {
@@ -58,6 +52,20 @@ public class LoginActivity extends BaseActivity {
     public void onClickLoginGoogleButton() {
 
         this.startSignInActivityGooglel();
+    }
+
+
+    // 1 - Http request that create user in firestore
+    private void createUserInFirestore() {
+
+        if (this.getCurrentUser() != null) {
+
+            String urlPicture = (this.getCurrentUser().getPhotoUrl() != null) ? this.getCurrentUser().getPhotoUrl().toString() : null;
+            String username = this.getCurrentUser().getDisplayName();
+            String uid = this.getCurrentUser().getUid();
+
+            UserHelper.createUser(uid, username, urlPicture).addOnFailureListener(this.onFailureListener());
+        }
     }
 
     // --------------------
@@ -104,25 +112,24 @@ public class LoginActivity extends BaseActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
+                this.createUserInFirestore();
                 startActivityIfConnected();
             } else {
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-                    showSnackbar("ressayez :/");
-//                    Toast.makeText(this, "re try !", Toast.LENGTH_SHORT).show();
-
+                    showSnackbar("Re try", R.id.loginLayout);
                     return;
                 }
 
                 if (Objects.requireNonNull(response.getError()).getErrorCode() == ErrorCodes.NO_NETWORK) {
                     // User has not internet
-                    showSnackbar("Vous n'êtes pas connecté à internet :(");
+                    showSnackbar("Vous n'êtes pas connecté à internet :(", R.id.loginLayout);
                     return;
                 }
                 // Other error
                 Log.e("tdb", "Sign-in error: ", response.getError());
-                Toast.makeText(this, "Erreur :(", Toast.LENGTH_SHORT).show();
+                showSnackbar("Error :(", R.id.loginLayout);
                 Crashlytics.logException(new RuntimeException("Google Sign-in error: " + response.getError()));
 
 

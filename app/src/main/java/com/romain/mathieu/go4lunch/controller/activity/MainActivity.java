@@ -21,6 +21,8 @@ import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.controller.fragment.MyListFragment;
 import com.romain.mathieu.go4lunch.controller.fragment.MyMapFragment;
 import com.romain.mathieu.go4lunch.controller.fragment.MyWorkmatesFragment;
+import com.romain.mathieu.go4lunch.model.User;
+import com.romain.mathieu.go4lunch.model.UserHelper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -125,11 +127,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (this.getCurrentUser() != null) {
 
-            userName.setText(this.getCurrentUser().getDisplayName());
             userEmail.setText(this.getCurrentUser().getEmail());
             urlPhoto = this.getCurrentUser().getPhotoUrl();
 
-            Log.e("tdb", String.valueOf(urlPhoto));
+            UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
+                User currentUser = documentSnapshot.toObject(User.class);
+                String username = currentUser.getUsername();
+                userName.setText(username);
+
+            });
 
 
             if (this.getCurrentUser().getPhotoUrl() != null) {

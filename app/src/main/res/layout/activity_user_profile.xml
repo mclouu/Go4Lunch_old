@@ -11,7 +11,7 @@
 
     <!-- USER DATA CONTAINER -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -57,7 +57,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/rmathieu13_gmail_com"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -72,12 +71,11 @@
         </LinearLayout>
 
         <!-- CHECKBOX IS USER MENTOR -->
-        <Switch
-            android:id="@+id/profile_activity_check_box_is_mentor"
+        <CheckBox
+            android:id="@+id/profile_activity_check_box_is_x"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:paddingBottom="50dp"
             android:text="je suis con"
             android:textSize="18sp"
             tools:checked="true" />
