@@ -65,18 +65,18 @@
                 android:id="@+id/profile_activity_text_view_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/default_margin"
+                android:paddingStart="@dimen/default_margin"
                 android:textSize="@dimen/default_text_size" />
 
         </LinearLayout>
 
         <!-- CHECKBOX IS USER MENTOR -->
         <CheckBox
-            android:id="@+id/profile_activity_check_box_is_x"
+            android:id="@+id/profile_activity_check_box_notif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="je suis con"
+            android:text="Être notifié"
             android:textSize="18sp"
             tools:checked="true" />
 
