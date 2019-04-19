@@ -1,5 +1,6 @@
 package com.romain.mathieu.go4lunch.controller.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -31,9 +32,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -89,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         userPhoto = header.findViewById(R.id.userphoto);
 
 
-        this.updateUIWhenLoging();
-
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
@@ -107,11 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         showFragment(new MyMapFragment());
+        methodRequiresPermission();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.activity_main_frame_layout, new MyMapFragment());
-        fragmentTransaction.commit();
+        this.updateUIWhenLoging();
     }
 
     @Nullable
@@ -128,13 +124,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
                 User currentUser = documentSnapshot.toObject(User.class);
-                String username = currentUser.getUsername();
-                userName.setText(username);
-                Glide.with(this)
-                        .load(currentUser.getUrlPicture())
-                        .placeholder(R.drawable.imageempty)
-                        .apply(RequestOptions.circleCropTransform())
-                        .into(userPhoto);
+                String username;
+                if (currentUser != null) {
+                    username = currentUser.getUsername();
+
+                    userName.setText(username);
+
+                    Glide.with(this)
+                            .load(currentUser.getUrlPicture())
+                            .placeholder(R.drawable.imageempty)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(userPhoto);
+                } else {
+                    userName.setText(this.getCurrentUser().getDisplayName());
+                }
             });
         }
     }
@@ -162,9 +165,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
+        // Handle navigation view item_restaurant clicks here.
         int id = item.getItemId();
-        // 6 - Show fragment after user clicked on a menu item
+        // 6 - Show fragment after user clicked on a menu item_restaurant
         switch (id) {
             case R.id.menu_drawer_1:
                 this.onLunchSelected();
@@ -205,5 +208,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     startActivity(myIntent);
                 });
 
+    }
+
+    private void methodRequiresPermission() {
+        if (!EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            EasyPermissions.requestPermissions(this, "Go4Lunch à besoin de vous localiser pour fonctionner. Souhaitez vous accepter ?", 25, Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // 2 - Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 }
