@@ -66,12 +66,24 @@ public class LoginActivity extends BaseActivity {
             String username = LoginActivity.this.getCurrentUser().getDisplayName();
             String uid = LoginActivity.this.getCurrentUser().getUid();
 
+            Log.e("TDB", username + uid);
             UserHelper.getUser(uid).addOnSuccessListener(documentSnapshot -> {
                 User currentUser = documentSnapshot.toObject(User.class);
-                String userUid = currentUser.getUid();
+                String userUid = "1";
+                if (currentUser != null) {
+                    userUid = currentUser.getUid();
+                }
+                Log.e("TDB", uid + " n'est pas égal à " + userUid);
                 if (!uid.equals(userUid)) {
                     UserHelper.createUser(uid, username, urlPicture).addOnFailureListener(LoginActivity.this.onFailureListener());
+                    Log.e("TDB", "user créer ");
+                    Log.e("TDB", uid + username + urlPicture);
+
+                } else {
+                    Log.e("TDB", "user non créer ");
+
                 }
+
             });
         }
     }
