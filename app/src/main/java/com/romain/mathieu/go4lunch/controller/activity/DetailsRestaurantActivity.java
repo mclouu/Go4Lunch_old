@@ -13,10 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DetailsRestaurantActivity extends Activity {
-
-    String urlImg;
-    String name;
-    String adresse;
+    String name, adresse, placeID, urlImg;
 
     @BindView(R.id.restaurant_image_view)
     ImageView img;
@@ -36,14 +33,18 @@ public class DetailsRestaurantActivity extends Activity {
         urlImg = intent.getStringExtra("urlimg");
         name = intent.getStringExtra("name");
         adresse = intent.getStringExtra("adresse");
+        placeID = intent.getStringExtra("placeID");
 
+
+        this.updateUi();
+    }
+
+    public void updateUi() {
         restaurantName.setText(name);
         restaurantAdresse.setText(adresse);
 
         Glide.with(DetailsRestaurantActivity.this)
                 .load(urlImg)
                 .into(img);
-
-
     }
 }

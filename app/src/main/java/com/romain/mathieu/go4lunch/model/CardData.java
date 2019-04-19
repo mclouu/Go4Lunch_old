@@ -7,11 +7,11 @@ package com.romain.mathieu.go4lunch.model;
 
 public class CardData {
 
-    private String name, adresse, horary, distance, numberWorkmates, imageUrl;
+    private String name, adresse, horary, distance, numberWorkmates, imageUrl, placeID;
     private double rating;
 
 
-    public CardData(String mName, String mAdresse, String mHorary, String mDistance, String mNumberWorkmates, double mRating, String mImageUrl) {
+    public CardData(String mName, String mAdresse, String mHorary, String mDistance, String mNumberWorkmates, double mRating, String mImageUrl, String placeID) {
 
         this.name = mName;
         this.adresse = mAdresse;
@@ -20,6 +20,7 @@ public class CardData {
         this.numberWorkmates = mNumberWorkmates;
         this.rating = mRating;
         this.imageUrl = mImageUrl;
+        this.placeID = placeID;
     }
 
 
@@ -49,5 +50,9 @@ public class CardData {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getPlaceID() {
+        return placeID;
     }
 }

@@ -117,6 +117,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RestaurantsViewHol
             intent.putExtra("urlimg", url);
             intent.putExtra("name", object.getName());
             intent.putExtra("adresse", object.getAdresse());
+            intent.putExtra("placeID", object.getPlaceID());
             context.startActivity(intent);
 
         }

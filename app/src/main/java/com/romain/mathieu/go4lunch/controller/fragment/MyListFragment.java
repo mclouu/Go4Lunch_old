@@ -12,7 +12,7 @@ import com.facebook.stetho.Stetho;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.model.CardData;
 import com.romain.mathieu.go4lunch.model.MapStreams;
-import com.romain.mathieu.go4lunch.model.api.ResponseMap;
+import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseMap;
 import com.romain.mathieu.go4lunch.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -145,6 +145,7 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
             String distance = "200m";
             String numberWorkmates = "5";
             double rating = response.getResults().get(i).getRating();
+            String placeID = response.getResults().get(i).getPlaceId();
             String photoRef;
 
             if (response.getResults().get(i).getPhotos() == null) {
@@ -160,8 +161,8 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
                     distance + " ",
                     numberWorkmates + " ",
                     rating,
-                    photoRef
-            ));
+                    photoRef,
+                    placeID));
         }
         adapter.notifyDataSetChanged();
     }
