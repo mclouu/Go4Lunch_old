@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.model.CardData;
-import com.romain.mathieu.go4lunch.model.MapStreams;
+import com.romain.mathieu.go4lunch.model.request.MapStreams;
 import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseMap;
 import com.romain.mathieu.go4lunch.view.MyAdapter;
 

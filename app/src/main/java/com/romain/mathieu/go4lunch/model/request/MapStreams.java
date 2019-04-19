@@ -1,4 +1,4 @@
-package com.romain.mathieu.go4lunch.model;
+package com.romain.mathieu.go4lunch.model.request;
 
 import android.media.Image;
 
