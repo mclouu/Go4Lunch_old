@@ -172,9 +172,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.menu_drawer_1:
                 this.onLunchSelected();
                 break;
-            case R.id.menu_drawer_2:
-                this.onSettingSelected();
-                break;
             case R.id.menu_drawer_3:
                 this.onLogoutSelected();
                 break;
@@ -193,11 +190,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void onLunchSelected() {
-    }
-
-    private void onSettingSelected() {
-        Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        startActivity(myIntent);
     }
 
     private void onLogoutSelected() {
