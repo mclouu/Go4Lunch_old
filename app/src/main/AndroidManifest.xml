@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -51,6 +52,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.activity.ProfileActivity" />
+        <activity android:name=".controller.activity.WebViewActivity" />
     </application>
 
 </manifest>
