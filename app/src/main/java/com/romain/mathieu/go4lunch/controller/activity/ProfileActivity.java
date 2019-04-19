@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.romain.mathieu.go4lunch.R;
@@ -37,6 +37,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class ProfileActivity extends BaseActivity {
+
+
 
     // 1 - STATIC DATA FOR PICTURE
     private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
@@ -59,6 +61,7 @@ public class ProfileActivity extends BaseActivity {
 
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.app_name));
+        btnUpdate.setClickable(true);
 
         this.updateUIWhenCreating();
     }
@@ -83,6 +86,8 @@ public class ProfileActivity extends BaseActivity {
     CheckBox checkBoxIsX;
     @BindView(R.id.profile_activity_progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.profile_activity_button_update)
+    Button btnUpdate;
 
 
     //-----------------------------------||
@@ -103,6 +108,8 @@ public class ProfileActivity extends BaseActivity {
     @OnClick(R.id.profile_activity_button_update)
     public void onClickUpdateButton() {
         progressBar.setVisibility(View.VISIBLE);
+        btnUpdate.setClickable(false);
+        //TODO : changer la couleur du bouton !!
         this.uploadPhotoInFirebaseAndUpdatePhoto();
         this.updateUsernameInFirebase();
 
@@ -137,10 +144,6 @@ public class ProfileActivity extends BaseActivity {
 
             //4 - We also delete user from firestore storage
             UserHelper.deleteUser(this.getCurrentUser().getUid())
-                    .addOnFailureListener(this.onFailureListener());
-
-            AuthUI.getInstance()
-                    .delete(this)
                     .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(DELETE_USER_TASK))
                     .addOnFailureListener(onFailureListener());
         }
@@ -249,6 +252,9 @@ public class ProfileActivity extends BaseActivity {
             switch (origin) {
                 // 8 - Hiding Progress bar after request completed
                 case DELETE_USER_TASK:
+                    AuthUI.getInstance()
+                            .delete(this)
+                            .addOnFailureListener(onFailureListener());
                     progressBar.setVisibility(View.INVISIBLE);
                     Intent intentLoginActivity = new Intent(ProfileActivity.this, LoginActivity.class);
                     startActivity(intentLoginActivity);
