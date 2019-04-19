@@ -82,8 +82,8 @@ public class ProfileActivity extends BaseActivity {
     EditText editTextUsername;
     @BindView(R.id.profile_activity_text_view_email)
     TextView textViewEmail;
-    @BindView(R.id.profile_activity_check_box_is_x)
-    CheckBox checkBoxIsX;
+    @BindView(R.id.profile_activity_check_box_notif)
+    CheckBox checkBoxNotif;
     @BindView(R.id.profile_activity_progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.profile_activity_button_update)
@@ -100,9 +100,9 @@ public class ProfileActivity extends BaseActivity {
         this.chooseImageFromPhone();
     }
 
-    @OnClick(R.id.profile_activity_check_box_is_x)
+    @OnClick(R.id.profile_activity_check_box_notif)
     public void onClickSwitchIsOn() {
-        this.updateUserIsX();
+        this.enabledNotif();
     }
 
     @OnClick(R.id.profile_activity_button_update)
@@ -156,11 +156,11 @@ public class ProfileActivity extends BaseActivity {
                 .addOnSuccessListener(this.updateUIAfterRESTRequestsCompleted(UPDATE_PROFILE));
     }
 
-    // 3 - Update User Mentor (is or not)
-    private void updateUserIsX() {
-        boolean checkBox = this.checkBoxIsX.isChecked();
+    // 3 - enabledNotif
+    private void enabledNotif() {
+        boolean checkBox = this.checkBoxNotif.isChecked();
 
-        UserHelper.updateIsX(checkBox, this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener())
+        UserHelper.enebleNotif(checkBox, this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener())
                 .addOnSuccessListener(this.updateUIAfterRESTRequestsCompleted(UPDATE_PROFILE));
     }
 
@@ -177,7 +177,7 @@ public class ProfileActivity extends BaseActivity {
         UserHelper.getUser(this.getCurrentUser().getUid()).addOnSuccessListener(documentSnapshot -> {
             User currentUser = documentSnapshot.toObject(User.class);
             String username = currentUser.getUsername();
-            checkBoxIsX.setChecked(currentUser.getIsX());
+            checkBoxNotif.setChecked(currentUser.getEnebleNotif());
             editTextUsername.setText(username);
             Glide.with(ProfileActivity.this)
                     .load(currentUser.getUrlPicture())

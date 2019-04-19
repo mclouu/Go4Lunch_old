@@ -34,8 +34,8 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).update("username", username);
     }
 
-    public static Task<Void> updateIsX(Boolean isX, String uid) {
-        return UserHelper.getUsersCollection().document(uid).update("isX", isX);
+    public static Task<Void> enebleNotif(Boolean enebleNotif, String uid) {
+        return UserHelper.getUsersCollection().document(uid).update("enebleNotif", enebleNotif);
     }
 
     public static Task<Void> updateUserPhoto(String urlPhoto, String uid) {

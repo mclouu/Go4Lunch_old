@@ -7,7 +7,7 @@ public class User {
 
     private String uid;
     private String username;
-    private Boolean isX;
+    private Boolean enebleNotif;
     @Nullable
     private String urlPicture;
 
@@ -18,7 +18,7 @@ public class User {
         this.uid = uid;
         this.username = username;
         this.urlPicture = urlPicture;
-        this.isX = true;
+        this.enebleNotif = true;
     }
 
     // --- GETTERS ---
@@ -34,8 +34,8 @@ public class User {
         return urlPicture;
     }
 
-    public Boolean getIsX() {
-        return isX;
+    public Boolean getEnebleNotif() {
+        return enebleNotif;
     }
 
     // --- SETTERS ---
@@ -51,8 +51,8 @@ public class User {
         this.urlPicture = urlPicture;
     }
 
-    public void setIsX(Boolean x) {
-        isX = x;
+    public void setEnebleNotif(Boolean enebleNotif) {
+        this.enebleNotif = enebleNotif;
     }
 
 }
