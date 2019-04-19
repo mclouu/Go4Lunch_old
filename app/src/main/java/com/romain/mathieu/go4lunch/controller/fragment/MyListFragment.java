@@ -17,6 +17,7 @@ import com.romain.mathieu.go4lunch.view.MyAdapter;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,12 +31,11 @@ import io.reactivex.observers.DisposableObserver;
 public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
-    public static ArrayList<CardData> list = new ArrayList<>();
+    private static ArrayList<CardData> list = new ArrayList<>();
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    private LinearLayoutManager llm;
     private MyAdapter adapter;
-    Context context;
+    private Context context;
     private Disposable disposable;
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -52,20 +52,18 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_list_restaurants, container, false);
         context = container.getContext();
 
         ButterKnife.bind(this, view);
         Stetho.initializeWithDefaults(context);
 
-        Stetho.initializeWithDefaults(context);
-
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        llm = new LinearLayoutManager(context);
+        LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(llm);
 
         adapter = new MyAdapter(list);
@@ -88,7 +86,6 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
         this.executeHttpRequestWithRetrofit();
         adapter.notifyDataSetChanged();
         swipeRefreshLayout.setRefreshing(false);
-
     }
 
     //-----------------------------------||
@@ -102,15 +99,13 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
     private void executeHttpRequestWithRetrofit() {
 
 
-        String location_chezmoi = "49.4996529, 5.7571362";
-        String location_paris = "48.866667, 2.333333";
-        String location_renaud = "49.117299, 6.088523";
+        String userLocation = MyMapFragment.latlng;
         String radius = "1500";
         String type = "restaurant";
         String keyword = "";
 //        String API_KEY = MyConstant.API_KEY;
         String API_KEY = "AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
-        this.disposable = MapStreams.streamFetchMap(location_chezmoi, radius, type, keyword, API_KEY).subscribeWith(
+        this.disposable = MapStreams.streamFetchMap(userLocation, radius, type, keyword, API_KEY).subscribeWith(
                 new DisposableObserver<ResponseMap>() {
                     @Override
                     public void onNext(ResponseMap section) {
@@ -169,7 +164,6 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
             ));
         }
         adapter.notifyDataSetChanged();
-
     }
 
 
