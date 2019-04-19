@@ -1,9 +1,8 @@
 package com.romain.mathieu.go4lunch.model.request;
 
-import android.media.Image;
-
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseMap;
+import com.romain.mathieu.go4lunch.model.api.placeDetails.ResponseDetails;
+import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseRestaurant;
 import com.romain.mathieu.go4lunch.utils.MyConstant;
 
 import io.reactivex.Observable;
@@ -28,17 +27,17 @@ public interface MapService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
-    @GET("maps/api/place/nearbysearch/json?")
-    Observable<ResponseMap> getMap(@Query("location") String location,
-                                   @Query("radius") String radius,
-                                   @Query("type") String type,
-                                   @Query("keyword") String keyword,
-                                   @Query("key") String key);
+    @GET("nearbysearch/json?")
+    Observable<ResponseRestaurant> getRestaurant(@Query("location") String location,
+                                                 @Query("radius") String radius,
+                                                 @Query("type") String type,
+                                                 @Query("keyword") String keyword,
+                                                 @Query("key") String key);
 
 
-    @GET("maps/api/place/photo?")
-    Observable<Image> getPhoto(@Query("maxwidth") String maxwidth,
-                               @Query("photoreference") String photoreference,
-                               @Query("key") String key);
+    @GET("details/json?")
+    Observable<ResponseDetails> getDetails(@Query("placeid") String placeid,
+                                           @Query("fields") String fields,
+                                           @Query("key") String key);
 
 }

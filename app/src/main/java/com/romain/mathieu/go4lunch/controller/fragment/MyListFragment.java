@@ -12,7 +12,7 @@ import com.facebook.stetho.Stetho;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.model.CardData;
 import com.romain.mathieu.go4lunch.model.request.MapStreams;
-import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseMap;
+import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseRestaurant;
 import com.romain.mathieu.go4lunch.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import io.reactivex.observers.DisposableObserver;
 public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
 
-    private static ArrayList<CardData> list = new ArrayList<>();
+    private static ArrayList<CardData> listRestaurant = new ArrayList<>();
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private MyAdapter adapter;
@@ -66,7 +66,7 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
         LinearLayoutManager llm = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(llm);
 
-        adapter = new MyAdapter(list);
+        adapter = new MyAdapter(listRestaurant);
         recyclerView.setAdapter(adapter);
 
         // 2 - Call the stream
@@ -105,10 +105,10 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
         String keyword = "";
 //        String API_KEY = MyConstant.API_KEY;
         String API_KEY = "AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
-        this.disposable = MapStreams.streamFetchMap(userLocation, radius, type, keyword, API_KEY).subscribeWith(
-                new DisposableObserver<ResponseMap>() {
+        this.disposable = MapStreams.streamFetchRestaurant(userLocation, radius, type, keyword, API_KEY).subscribeWith(
+                new DisposableObserver<ResponseRestaurant>() {
                     @Override
-                    public void onNext(ResponseMap section) {
+                    public void onNext(ResponseRestaurant section) {
 //                         1.3 - Update UI with topstories
                         updateUIWithListOfArticle(section);
                     }
@@ -127,10 +127,10 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
         );
     }
 
-    private void updateUIWithListOfArticle(ResponseMap response) {
+    private void updateUIWithListOfArticle(ResponseRestaurant response) {
 
-        if (list != null) {
-            list.clear();
+        if (listRestaurant != null) {
+            listRestaurant.clear();
         }
 
         int num_results = response.getResults().size();
@@ -154,7 +154,7 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
                 photoRef = response.getResults().get(i).getPhotos().get(0).getPhotoReference();
             }
 
-            list.add(new CardData(
+            listRestaurant.add(new CardData(
                     name + " ",
                     adresse + " ",
                     horary + " ",
