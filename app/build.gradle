@@ -11,9 +11,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         multiDexEnabled true
-
-        versionCode 9
-        versionName "1.9"
+        versionCode 11
+        versionName "2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 
@@ -76,6 +75,7 @@ dependencies {
     //             FIREBASE              ||
     //-----------------------------------||
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    implementation "com.google.android.gms:play-services-location:16.0.0"
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
 
     implementation 'com.google.firebase:firebase-core:16.0.8'
