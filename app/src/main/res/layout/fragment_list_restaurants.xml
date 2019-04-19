@@ -28,7 +28,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:scrollbars="vertical"
-            tools:listitem="@layout/item" />
+            tools:listitem="@layout/item_restaurant" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
