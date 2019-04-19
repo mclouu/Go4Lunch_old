@@ -3,7 +3,7 @@ package com.romain.mathieu.go4lunch.model;
 import android.media.Image;
 
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.romain.mathieu.go4lunch.model.api.ResponseMap;
+import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseMap;
 import com.romain.mathieu.go4lunch.utils.MyConstant;
 
 import io.reactivex.Observable;

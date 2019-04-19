@@ -2,7 +2,7 @@ package com.romain.mathieu.go4lunch.model;
 
 import android.media.Image;
 
-import com.romain.mathieu.go4lunch.model.api.ResponseMap;
+import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseMap;
 
 import java.util.concurrent.TimeUnit;
 
