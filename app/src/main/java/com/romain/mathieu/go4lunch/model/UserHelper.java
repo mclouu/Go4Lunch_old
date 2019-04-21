@@ -5,6 +5,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+
 public class UserHelper {
 
     private static final String COLLECTION_NAME = "users";
@@ -36,6 +38,14 @@ public class UserHelper {
 
     public static Task<Void> enebleNotif(Boolean enebleNotif, String uid) {
         return UserHelper.getUsersCollection().document(uid).update("enebleNotif", enebleNotif);
+    }
+
+    public static Task<Void> restaurantLiked(HashMap<String, Boolean> restaurantLiked, String uid) {
+        return UserHelper.getUsersCollection().document(uid).update("restaurantLiked", restaurantLiked);
+    }
+
+    public static Task<Void> reservedRestaurant(String reservedRestaurant, String uid) {
+        return UserHelper.getUsersCollection().document(uid).update("reservedRestaurant", reservedRestaurant);
     }
 
     public static Task<Void> updateUserPhoto(String urlPhoto, String uid) {
