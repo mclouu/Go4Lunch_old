@@ -102,7 +102,7 @@ public class MyWorkmatesFragment extends Fragment implements SwipeRefreshLayout.
             @Override
             protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull User user) {
                 holder.setUserName(user.getUsername());
-                holder.setChoice(user.getUsername() + " is eating (TDB)");
+                holder.setChoice(user.getUsername() + " is eating " + user.getReservedRestaurant());
 
                 Glide.with(MyWorkmatesFragment.this)
                         .load(user.getUrlPicture())
