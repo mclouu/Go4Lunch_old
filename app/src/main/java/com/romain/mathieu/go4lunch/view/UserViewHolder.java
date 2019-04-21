@@ -30,4 +30,9 @@ public class UserViewHolder extends RecyclerView.ViewHolder {
     public ImageView getPhoto() {
         return view.findViewById(R.id.user_photo);
     }
+
+    public void setVisibilityRecyclerView(int visibility) {
+        View rv = view.findViewById(R.id.relativeLayout_workmates);
+        rv.setVisibility(visibility);
+    }
 }
