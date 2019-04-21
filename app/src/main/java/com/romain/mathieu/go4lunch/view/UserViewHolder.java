@@ -1,5 +1,6 @@
 package com.romain.mathieu.go4lunch.view;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class UserViewHolder extends RecyclerView.ViewHolder {
 
     private View view;
+    private Context context;
 
     public UserViewHolder(View itemView) {
         super(itemView);
         view = itemView;
+        context = itemView.getContext();
     }
 
     public void setUserName(String userName) {
