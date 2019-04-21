@@ -111,21 +111,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RestaurantsViewHol
             Intent intent = new Intent(context, DetailsRestaurantActivity.class);
             final CardData object = mdatas.get(position);
 
-            String photoReference = object.getImageUrl();
-            String key = "&key=AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
-            String url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + key;
-
-            intent.putExtra("urlimg", url);
-            intent.putExtra("name", object.getName());
-            intent.putExtra("adresse", object.getAdresse());
             intent.putExtra("placeID", object.getPlaceID());
             if (SharedPreferencesUtils.containsHashMap(context)) {
                 if (SharedPreferencesUtils.getHashMap(context).get(object.getName())) {
                     intent.putExtra("isLike", true);
                 }
             }
-
-
             context.startActivity(intent);
 
         }
