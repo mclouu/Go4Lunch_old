@@ -8,6 +8,7 @@ public class User {
     private String uid;
     private String username;
     private Boolean enebleNotif;
+    private String reservedRestaurant;
     @Nullable
     private String urlPicture;
 
@@ -17,6 +18,7 @@ public class User {
     User(String uid, String username, String urlPicture) {
         this.uid = uid;
         this.username = username;
+        this.reservedRestaurant = "";
         this.urlPicture = urlPicture;
         this.enebleNotif = true;
     }
@@ -38,6 +40,10 @@ public class User {
         return enebleNotif;
     }
 
+    public String getReservedRestaurant() {
+        return reservedRestaurant;
+    }
+
     // --- SETTERS ---
     public void setUsername(String username) {
         this.username = username;
@@ -55,4 +61,7 @@ public class User {
         this.enebleNotif = enebleNotif;
     }
 
+    public void setReservedRestaurant(String reservedRestaurant) {
+        this.reservedRestaurant = reservedRestaurant;
+    }
 }
