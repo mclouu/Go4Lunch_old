@@ -11,8 +11,8 @@ import android.widget.Toast;
 import com.facebook.stetho.Stetho;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.model.CardData;
-import com.romain.mathieu.go4lunch.model.request.MapStreams;
 import com.romain.mathieu.go4lunch.model.api.placeSearch.ResponseRestaurant;
+import com.romain.mathieu.go4lunch.model.request.MapStreams;
 import com.romain.mathieu.go4lunch.view.MyAdapter;
 
 import java.util.ArrayList;
@@ -100,7 +100,7 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
 
 
         String userLocation = MyMapFragment.latlng;
-        String radius = "1500";
+        String radius = "5500";
         String type = "restaurant";
         String keyword = "";
 //        String API_KEY = MyConstant.API_KEY;
@@ -144,13 +144,14 @@ public class MyListFragment extends Fragment implements SwipeRefreshLayout.OnRef
 //            }
             String distance = "200m";
             String numberWorkmates = "5";
-            double rating = response.getResults().get(i).getRating();
             String placeID = response.getResults().get(i).getPlaceId();
-            String photoRef;
 
-            if (response.getResults().get(i).getPhotos() == null) {
-                photoRef = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
-            } else {
+            double rating = 0.0;
+            if (response.getResults().get(i).getRating() != null) {
+                rating = response.getResults().get(i).getRating();
+            }
+            String photoRef = "https://image.noelshack.com/fichiers/2018/17/7/1524955130-empty-image-thumb2.png";
+            if (response.getResults().get(i).getPhotos() != null) {
                 photoRef = response.getResults().get(i).getPhotos().get(0).getPhotoReference();
             }
 
