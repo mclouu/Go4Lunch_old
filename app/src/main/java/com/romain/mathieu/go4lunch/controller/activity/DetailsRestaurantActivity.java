@@ -65,24 +65,22 @@ public class DetailsRestaurantActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        this.adapterWorkmates();
         Intent intent = getIntent();
 
-        if (SharedPreferencesUtils.containsHashMap(this)) {
-            hashMapLike = SharedPreferencesUtils.getHashMap(this);
-        }
-        recyclerView = findViewById(R.id.restaurant_attendees_recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-        urlImg = intent.getStringExtra("urlimg");
-        name = intent.getStringExtra("name");
-        adresse = intent.getStringExtra("adresse");
         placeID = intent.getStringExtra("placeID");
         isLike = intent.getBooleanExtra("isLike", false);
 
-        this.updateUi();
         this.executeHttpRequestWithRetrofit();
+
+        this.adapterWorkmates();
+        if (SharedPreferencesUtils.containsHashMap(this)) {
+            hashMapLike = SharedPreferencesUtils.getHashMap(this);
+        }
+
+
+        recyclerView = findViewById(R.id.restaurant_attendees_recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -152,16 +150,22 @@ public class DetailsRestaurantActivity extends BaseActivity {
     // 1 - Execute our Stream
     private void executeHttpRequestWithRetrofit() {
 
-        String fields = "formatted_phone_number,website,opening_hours";
+        String fields = "formatted_phone_number,website,opening_hours,formatted_address,name,photos";
         String API_KEY = "AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
 
         this.disposable = MapStreams.streamFetchDetails(placeID, fields, API_KEY).subscribeWith(
                 new DisposableObserver<ResponseDetails>() {
                     @Override
                     public void onNext(ResponseDetails response) {
+                        name = response.getResult().getName();
+                        adresse = response.getResult().getFormattedAddress();
                         phoneNumber = response.getResult().getFormattedPhoneNumber();
                         webSite = response.getResult().getWebsite();
+                        String photoReference = response.getResult().getPhotos().get(1).getPhotoReference();
+                        String key = "&key=AIzaSyBW10_Ie5wh-vwbEXEfWzk2zOFOQ_xfDWk";
+                        urlImg = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + photoReference + key;
                         opening_hours = " ";
+                        updateUi();
                     }
 
                     @Override
