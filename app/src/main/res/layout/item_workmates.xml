@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_toEndOf="@+id/user_photo"
-        android:text="Romain Mathieu3"
+        android:text=""
         android:textColor="@color/colorPrimary"
         android:textStyle="bold" />
 
@@ -31,10 +31,11 @@
         android:layout_below="@id/user_name"
         android:layout_margin="8dp"
         android:layout_toEndOf="@+id/user_photo"
-        android:text="Scarlett is eating (tdb)"
+        android:text=""
         android:textColor="@color/colorPrimary" />
 
     <View
+        android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@id/user_photo"
