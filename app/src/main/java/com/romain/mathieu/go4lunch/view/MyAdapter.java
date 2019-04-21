@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.romain.mathieu.go4lunch.R;
 import com.romain.mathieu.go4lunch.controller.activity.DetailsRestaurantActivity;
 import com.romain.mathieu.go4lunch.model.CardData;
+import com.romain.mathieu.go4lunch.utils.SharedPreferencesUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -118,6 +119,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.RestaurantsViewHol
             intent.putExtra("name", object.getName());
             intent.putExtra("adresse", object.getAdresse());
             intent.putExtra("placeID", object.getPlaceID());
+            if (SharedPreferencesUtils.containsHashMap(context)) {
+                if (SharedPreferencesUtils.getHashMap(context).get(object.getName())) {
+                    intent.putExtra("isLike", true);
+                }
+            }
+
+
             context.startActivity(intent);
 
         }
